@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { AnimatedCircularProgressBar } from "@/components/magicui/animated-circular-progress-bar";
-import { use } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Home from "./home";
+import Loader from "@/components/ui/loader";
 
 const Intro = () => {
   const [easyProgress, setEasyProgress] = useState(0);
@@ -15,6 +15,7 @@ const Intro = () => {
   const [recursionProgress, setRecursionProgress] = useState(0);
   const [stackProgress, setStackProgress] = useState(0);
   const [queueProgress, setQueueProgress] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSolvedData = async (difficulty, setProgress) => {
@@ -69,6 +70,13 @@ const Intro = () => {
     fetchSolvedData("Stacks", setStackProgress);
     fetchSolvedData("Queues", setQueueProgress);
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+  if (loading) return <Loader />;
 
   return (
     <div className="h-screen overflow-y-auto text-white flex flex-col items-center gap-10 p-6">

@@ -9,10 +9,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import FirstPage from "./firstpage";
+import Loader from "../components/ui/loader";
 
 const Home = () => {
   const [problems, setProblems] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProblems();
@@ -58,6 +60,13 @@ const Home = () => {
     acc[item.topic][item.difficulty].push(item);
     return acc;
   }, {});
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+  if (loading) return <Loader />;
 
   return (
     <div className="p-6 h-screen overflow-y-auto max-w-5xl mx-auto text-white ">
