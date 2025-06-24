@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Home from "./home";
 import Loader from "@/components/ui/loader";
+import { useUser } from '@clerk/clerk-react';
 
 const Intro = () => {
   const [easyProgress, setEasyProgress] = useState(0);
@@ -16,7 +17,8 @@ const Intro = () => {
   const [stackProgress, setStackProgress] = useState(0);
   const [queueProgress, setQueueProgress] = useState(0);
   const [loading, setLoading] = useState(true);
-
+  const { user, isLoaded } = useUser();
+  
   useEffect(() => {
     const fetchSolvedData = async (difficulty, setProgress) => {
       const { data: allProblems, error } = await supabase
@@ -71,12 +73,16 @@ const Intro = () => {
     fetchSolvedData("Queues", setQueueProgress);
   }, []);
 
+  
+  
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
   if (loading) return <Loader />;
+
+   
 
   return (
     <div className="h-screen overflow-y-auto text-white flex flex-col items-center gap-10 p-6">

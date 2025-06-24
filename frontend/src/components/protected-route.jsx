@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Navigate, useLocation } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
@@ -13,9 +12,9 @@ const ProtectedRoute = ({ children }) => {
   if (
     user !== undefined &&
     !user?.unsafeMetadata?.role &&
-    pathname !== "/intro"
+    pathname
   )
-    return <Navigate to="/intro" />;
+    return <Navigate to="/onboarding" />;
 
   return children;
 };
