@@ -22,7 +22,6 @@ const Home = () => {
 
   const fetchProblems = async () => {
     const { data, error } = await supabase.from("problems").select("*");
-    if (error) return console.error(error);
     setProblems(data);
     setFiltered(data);
   };
@@ -38,7 +37,6 @@ const Home = () => {
     level === "Easy" ? "🟢" : level === "Medium" ? "🟡" : "🔴";
 
   const handleToggleSolved = async (id, currentValue) => {
-    console.log(`Updating problem ID ${id}, solved: ${!currentValue}`);
     const { error } = await supabase
       .from("problems")
       .update({ solved: !currentValue })
@@ -50,6 +48,17 @@ const Home = () => {
       );
       setProblems(updated);
       setFiltered(updated);
+    }
+  };
+
+  const handleGetStarted = async () => {
+    try {
+      await user.update({
+        unsafeMetadata: { role: "basic" }, 
+      });
+      navigate("/home"); 
+    } catch (error) {
+      console.error("Failed to update role:", error);
     }
   };
 
@@ -138,7 +147,7 @@ const Home = () => {
       ))}
       <div className="fixed bottom-5 right-5 mb-4 rounded-xl shadow-lg bg-white/10 backdrop-blur-md hover:bg-white/80">
         <Link to={"/firstpage"}>
-          <Button>Ask AI</Button>
+          <Button onClick={handleGetStarted}>Ask AI</Button>
         </Link>
       </div>
     </div>

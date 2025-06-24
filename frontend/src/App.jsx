@@ -58,15 +58,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/FirstPage",
-        element: <FirstPage />,
+        element:(
+          <ProtectedRoute>
+          <FirstPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/home",
-        element: <Home />,
+        element:(
+          <ProtectedRoute>
+          <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/intro",
-        element: <Intro />,
+        element:(
+          <ProtectedRoute>
+          <Intro />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/auth-redirect",

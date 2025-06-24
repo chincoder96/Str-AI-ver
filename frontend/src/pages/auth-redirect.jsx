@@ -17,11 +17,6 @@ const AuthRedirect = () => {
       const email = user?.primaryEmailAddress?.emailAddress;
       const name = user?.fullName;
 
-      console.log("mode:", mode);
-      console.log("userId:", userId);
-      console.log("email:", email);
-      console.log("name:", name);
-
       const { data: existingUser, error } = await supabase
         .from("users")
         .select("id")
@@ -37,24 +32,21 @@ const AuthRedirect = () => {
               name,
             },
           ]);
-
-          if (insertError) {
-            console.error("Insert error:", insertError);
-          } else {
-            console.log(" User inserted into Supabase");
-          }
-        } else {
-          console.log("User already exists in Supabase (signup)");
+          navigate("/intro");
+        } 
+        else {
+          alert("User already exists in Supabase. Please try again");
+          window.Clerk.signOut(); 
+          navigate("/");
         }
-        navigate("/intro");
+        
       }
 
       if (mode === "login") {
         if (existingUser) {
-          console.log(" User exists in Supabase (login)");
           navigate("/intro");
         } else {
-          alert(" You haven't signed up yet.");
+          alert(" Account doesn't exist. Please SignUp first. ");
           window.Clerk.signOut(); 
           navigate("/");
         }
@@ -66,7 +58,7 @@ const AuthRedirect = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      Redirecting...
+      Redirecting. Please wait...
     </div>
   );
 };

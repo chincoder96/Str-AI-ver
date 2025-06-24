@@ -18,18 +18,13 @@ const Intro = () => {
   const [queueProgress, setQueueProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const { user, isLoaded } = useUser();
-  
+
   useEffect(() => {
     const fetchSolvedData = async (difficulty, setProgress) => {
       const { data: allProblems, error } = await supabase
         .from("problems")
         .select("*")
         .eq("difficulty", difficulty);
-
-      if (error) {
-        console.error(`Error fetching ${difficulty} problems:`, error);
-        return;
-      }
 
       const solved = allProblems.filter((p) => p.solved);
       const percent =
@@ -52,11 +47,6 @@ const Intro = () => {
         .select("*")
         .eq("topic", topic);
 
-      if (error) {
-        console.error(`Error fetching ${difficulty} problems:`, error);
-        return;
-      }
-
       const solved = allProblems.filter((p) => p.solved);
       const percent =
         allProblems.length === 0
@@ -73,7 +63,16 @@ const Intro = () => {
     fetchSolvedData("Queues", setQueueProgress);
   }, []);
 
-  
+    const handleGetStarted = async () => {
+    try {
+      await user.update({
+        unsafeMetadata: { role: "basic" }, 
+      });
+      navigate("/home");
+    } catch (error) {
+      console.error("Failed to update role:", error);
+    }
+  };
   
   useEffect(() => {
     setTimeout(() => {
@@ -120,7 +119,7 @@ const Intro = () => {
       </div>
       <div className="mb-2 rounded-xl shadow-lg bg-white/10 backdrop-blur-md hover:bg-white/80">
         <Link to={"/home"}>
-          <Button className="bg-green-950 hover:bg-green-800 text-white text-lg px-6 py-3 rounded-xl font-semibold">
+          <Button onClick={handleGetStarted} className="bg-green-950 hover:bg-green-800 text-white text-lg px-6 py-3 rounded-xl font-semibold">
             Start Solving
           </Button>
         </Link>

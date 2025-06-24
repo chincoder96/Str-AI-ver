@@ -5,16 +5,19 @@ const ProtectedRoute = ({ children }) => {
   const { isSignedIn, isLoaded, user } = useUser();
   const { pathname } = useLocation();
 
-  if (isLoaded && !isSignedIn && isSignedIn !== undefined) {
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isSignedIn) {
     return <Navigate to="/?sign-in=true" />;
   }
 
-  if (
-    user !== undefined &&
-    !user?.unsafeMetadata?.role &&
-    pathname
-  )
-    return <Navigate to="/onboarding" />;
+  if (!user?.unsafeMetadata?.role && pathname !== "/intro") {
+    return <Navigate to="/intro" />;
+  }
+
+  
 
   return children;
 };
