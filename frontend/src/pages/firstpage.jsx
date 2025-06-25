@@ -294,7 +294,7 @@ const FirstPage = () => {
           placeholder="Type your code here..."
         />
 
-        <div className="flex justify-center gap-x-4">
+        <div className="flex justify-center gap-x-1">
           <Button
             onClick={submitMessage}
             className="right-2 bg-green-600 hover:bg-green-700"

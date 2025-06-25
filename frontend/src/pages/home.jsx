@@ -78,7 +78,7 @@ const Home = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="p-6 h-screen overflow-y-auto max-w-5xl mx-auto text-white ">
+    <div className="p-6 h-screen overflow-y-auto max-w-5xl mx-auto text-white pb-32 ">
       <h1 className="text-3xl font-bold mb-6 text-center">DSA Problem Sets</h1>
 
       {Object.entries(grouped).map(([topic, levels], index) => (
