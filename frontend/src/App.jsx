@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import './App.css'
-import LandingPage from "./pages/landing"
-import Home from "./pages/home"
-import FirstPage from "./pages/firstpage"
-import Intro from "./pages/intro"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import AppLayout from './layouts/app-layout'
-import AuthRedirect from './pages/auth-redirect'
-import { SignUp, SignIn } from "@clerk/clerk-react"
-import ProtectedRoute from './components/protected-route'
-import { dark } from '@clerk/themes'
+import { useState } from "react";
+import "./App.css";
+import LandingPage from "./pages/landing";
+import Home from "./pages/home";
+import FirstPage from "./pages/firstpage";
+import Intro from "./pages/intro";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppLayout from "./layouts/app-layout";
+import AuthRedirect from "./pages/auth-redirect";
+import { SignUp, SignIn } from "@clerk/clerk-react";
+import ProtectedRoute from "./components/protected-route";
+import { dark } from "@clerk/themes";
 
 const clerkAppearance = {
   baseTheme: dark,
   variables: {
-    colorPrimary: "#1e3a8a", 
+    colorPrimary: "#1e3a8a",
     borderRadius: "8px",
     fontFamily: "Inter, sans-serif",
   },
@@ -23,8 +23,8 @@ const clerkAppearance = {
     formButtonPrimary: "bg-blue-900 hover:bg-blue-800 text-white",
     headerTitle: "text-2xl font-bold",
     socialButtonsBlockButton: "bg-white text-gray-700 hover:bg-gray-100",
-  }
-}
+  },
+};
 
 const router = createBrowserRouter([
   {
@@ -58,25 +58,25 @@ const router = createBrowserRouter([
       },
       {
         path: "/FirstPage",
-        element:(
+        element: (
           <ProtectedRoute>
-          <FirstPage />
+            <FirstPage />
           </ProtectedRoute>
         ),
       },
       {
         path: "/home",
-        element:(
+        element: (
           <ProtectedRoute>
-          <Home />
+            <Home />
           </ProtectedRoute>
         ),
       },
       {
         path: "/intro",
-        element:(
+        element: (
           <ProtectedRoute>
-          <Intro />
+            <Intro />
           </ProtectedRoute>
         ),
       },
@@ -86,10 +86,10 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
 
 function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

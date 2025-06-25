@@ -54,9 +54,9 @@ const Home = () => {
   const handleGetStarted = async () => {
     try {
       await user.update({
-        unsafeMetadata: { role: "basic" }, 
+        unsafeMetadata: { role: "basic" },
       });
-      navigate("/home"); 
+      navigate("/home");
     } catch (error) {
       console.error("Failed to update role:", error);
     }
@@ -93,52 +93,57 @@ const Home = () => {
               </AccordionTrigger>
               <AccordionContent className="bg-white/10 backdrop-blur-md px-4 py-2">
                 <Accordion type="single" collapsible>
-                  {Object.entries(levels).map(([level, items], idx) => (
-                    <AccordionItem key={idx} value={`${topic}-${level}`}>
-                      <AccordionTrigger
-                        className={`text-md ${getColor(
-                          level
-                        )} hover:opacity-80`}
-                      >
-                        {getEmoji(level)} {level}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-sm text-gray-300 space-y-2">
-                        {items.map((problem, pIndex) => (
-                          <div
-                            key={pIndex}
-                            className="flex items-center justify-between border-b border-gray-700 pb-2"
-                          >
-                            <div className="flex flex-col">
-                              <a
-                                href={problem.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="hover:underline text-white"
-                              >
-                                {problem.title}
-                              </a>
-                              <span className="text-xs text-gray-500">
-                                {problem.url?.includes("leetcode")
-                                  ? "LeetCode"
-                                  : ""}
-                              </span>
+                  {["Easy", "Medium", "Hard"]
+                    .filter((level) => levels[level])
+                    .map((level, idx) => (
+                      <AccordionItem key={idx} value={`${topic}-${level}`}>
+                        <AccordionTrigger
+                          className={`text-md ${getColor(
+                            level
+                          )} hover:opacity-80`}
+                        >
+                          {getEmoji(level)} {level}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-sm text-gray-300 space-y-2">
+                          {levels[level].map((problem, pIndex) => (
+                            <div
+                              key={pIndex}
+                              className="flex items-center justify-between border-b border-gray-700 pb-2"
+                            >
+                              <div className="flex flex-col">
+                                <a
+                                  href={problem.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="hover:underline text-white"
+                                >
+                                  {problem.title}
+                                </a>
+                                <span className="text-xs text-gray-500">
+                                  {problem.url?.includes("leetcode")
+                                    ? "LeetCode"
+                                    : ""}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <label className="text-xs">Solved</label>
+                                <input
+                                  type="checkbox"
+                                  checked={problem.solved}
+                                  onChange={() =>
+                                    handleToggleSolved(
+                                      problem.id,
+                                      problem.solved
+                                    )
+                                  }
+                                  className="accent-green-700 h-4 w-4"
+                                />
+                              </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <label className="text-xs">Solved</label>
-                              <input
-                                type="checkbox"
-                                checked={problem.solved}
-                                onChange={() =>
-                                  handleToggleSolved(problem.id, problem.solved)
-                                }
-                                className="accent-green-700 h-4 w-4"
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
+                          ))}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
                 </Accordion>
               </AccordionContent>
             </AccordionItem>

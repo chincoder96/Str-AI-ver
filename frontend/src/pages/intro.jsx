@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Home from "./home";
 import Loader from "@/components/ui/loader";
-import { useUser } from '@clerk/clerk-react';
+import { useUser } from "@clerk/clerk-react";
 
 const Intro = () => {
   const [easyProgress, setEasyProgress] = useState(0);
@@ -63,25 +63,23 @@ const Intro = () => {
     fetchSolvedData("Queues", setQueueProgress);
   }, []);
 
-    const handleGetStarted = async () => {
+  const handleGetStarted = async () => {
     try {
       await user.update({
-        unsafeMetadata: { role: "basic" }, 
+        unsafeMetadata: { role: "basic" },
       });
       navigate("/home");
     } catch (error) {
       console.error("Failed to update role:", error);
     }
   };
-  
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
   if (loading) return <Loader />;
-
-   
 
   return (
     <div className="h-screen overflow-y-auto text-white flex flex-col items-center gap-10 p-6">
@@ -119,7 +117,10 @@ const Intro = () => {
       </div>
       <div className="mb-2 rounded-xl shadow-lg bg-white/10 backdrop-blur-md hover:bg-white/80">
         <Link to={"/home"}>
-          <Button onClick={handleGetStarted} className="bg-green-950 hover:bg-green-800 text-white text-lg px-6 py-3 rounded-xl font-semibold">
+          <Button
+            onClick={handleGetStarted}
+            className="bg-green-950 hover:bg-green-800 text-white text-lg px-6 py-3 rounded-xl font-semibold"
+          >
             Start Solving
           </Button>
         </Link>

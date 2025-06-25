@@ -37,7 +37,8 @@ const LandingPage = () => {
               <Button
                 className="bg-blue-950 hover:bg-blue-800 text-white text-lg px-6 py-3 rounded-xl font-semibold"
                 onClick={() => {
-                  window.location.href = "/sign-in?redirect_url=/auth-redirect?mode=login";
+                  window.location.href =
+                    "/sign-in?redirect_url=/auth-redirect?mode=login";
                 }}
               >
                 Log in
@@ -47,7 +48,8 @@ const LandingPage = () => {
               <Button
                 className="bg-blue-950 hover:bg-blue-800 text-white text-lg px-6 py-3 rounded-xl font-semibold"
                 onClick={() => {
-                  window.location.href = "/sign-up?redirect_url=/auth-redirect?mode=signup";
+                  window.location.href =
+                    "/sign-up?redirect_url=/auth-redirect?mode=signup";
                 }}
               >
                 Sign Up
