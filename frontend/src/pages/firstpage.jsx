@@ -247,7 +247,7 @@ const FirstPage = () => {
   return (
     <div className="flex justify-center">
       <div
-        className="text-white overflow-scroll container rounded mb-5 p-5 w-[600px] h-[60vh] flex flex-col gap-3 overflow-x-auto "
+        className="text-white overflow-scroll container rounded mb-5 p-5 w-[600px] h-[55vh] flex flex-col gap-3 overflow-x-auto "
         ref={chatBox}
       >
         {history.length > 0 &&
